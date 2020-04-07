@@ -1,13 +1,13 @@
-import connection from '../database/'
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _ = require('../database/'); var _2 = _interopRequireDefault(_);
 
-export default {
+exports. default = {
 
   async create (req, res) {
     const { title, description, value } = req.body
 
     const ong_id = req.headers.authorization
 
-    const [id] = await connection('incidents').insert({
+    const [id] = await _2.default.call(void 0, 'incidents').insert({
       title,
       description,
       value,
@@ -18,12 +18,12 @@ export default {
   },
 
   async index (req, res) {
-    const [count] = await connection('incidents')
+    const [count] = await _2.default.call(void 0, 'incidents')
       .count()
 
     const { page = 1 } = req.query
 
-    const incidents = await connection('incidents').select('*')
+    const incidents = await _2.default.call(void 0, 'incidents').select('*')
       .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
       .limit(5)
       .offset((page - 1) * 5)
@@ -44,10 +44,10 @@ export default {
     const { page = 1 } = req.query
     const ong_id = req.headers.authorization
 
-    const [count] = await connection('incidents')
+    const [count] = await _2.default.call(void 0, 'incidents')
       .count()
 
-    const incidents = await connection('incidents')
+    const incidents = await _2.default.call(void 0, 'incidents')
       .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
       .limit(5)
       .offset((page - 1) * 5)
@@ -69,7 +69,7 @@ export default {
     const { id } = req.params
     const ong_id = req.headers.authorization
 
-    const incident = await connection('incidents')
+    const incident = await _2.default.call(void 0, 'incidents')
       .where('id', id)
       .select('ong_id')
       .first()
@@ -78,7 +78,7 @@ export default {
       return res.status(401).json({ error: 'Operation not permitted' })
     }
 
-    await connection('incidents').where('id', id).delete()
+    await _2.default.call(void 0, 'incidents').where('id', id).delete()
 
     return res.status(204).json({ res: true })
   }

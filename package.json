@@ -5,7 +5,9 @@
   "main": "src/index",
   "scripts": {
     "start": "node src/index",
-    "dev": "nodemon src/index"
+    "start-prod": "node dist/index",
+    "dev": "nodemon src/index",
+    "build": "sucrase ./src -d ./dist --transforms imports"
   },
   "repository": {
     "type": "git",
